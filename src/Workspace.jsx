@@ -187,6 +187,7 @@ export default function Workspace({ id }) {
   const select = (key, label, options) => (
     <Field label={label}>
       <select
+        aria-label={label}
         value={s[key]}
         onChange={(e) => change({ [key]: e.target.value })}
       >
