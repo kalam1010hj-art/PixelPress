@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { createCanvas } from "@napi-rs/canvas";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.js";
@@ -100,4 +101,19 @@ try {
   );
 } finally {
   await vite.close();
+}
+
+for (const size of [192, 512]) {
+  const canvas = createCanvas(size, size);
+  const ctx = canvas.getContext("2d");
+  ctx.scale(size / 100, size / 100);
+  ctx.fillStyle = "#244c42";
+  ctx.fillRect(0, 0, 100, 100);
+  // A pixel-shaped P centered in the maskable icon safe zone.
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(32, 26, 10, 48);
+  ctx.fillRect(42, 26, 18, 9);
+  ctx.fillRect(60, 32, 9, 16);
+  ctx.fillRect(42, 46, 18, 9);
+  await writeFile(`dist/pixelpress-${size}.png`, canvas.toBuffer("image/png"));
 }
