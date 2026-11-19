@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 class Boundary extends React.Component {
@@ -19,10 +19,14 @@ class Boundary extends React.Component {
     );
   }
 }
-createRoot(document.getElementById("root")).render(
+const application = (
   <Boundary>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Boundary>,
+  </Boundary>
 );
+
+const root = document.getElementById("root");
+if (root.firstElementChild) hydrateRoot(root, application);
+else createRoot(root).render(application);
