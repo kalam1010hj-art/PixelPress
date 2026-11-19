@@ -15,5 +15,6 @@ jobs:
       - run: npm run lint
       - run: npm run test:processing
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
       - run: npm test
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
