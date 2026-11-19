@@ -58,7 +58,9 @@ for (const t of tools)
     }
     if (t.id === "pdf") {
       await input.setInputFiles(await fixture(page, "image/png", 12, 80));
-      await page.getByRole("button", { name: "Earlier" }).last().click();
+      const earlier = page.getByRole("button", { name: "Earlier" });
+      await expect(earlier).toHaveCount(2);
+      await earlier.nth(1).click();
       await page.getByLabel("Orientation").selectOption("landscape");
     }
     if (t.id === "crop")
