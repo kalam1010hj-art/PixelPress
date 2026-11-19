@@ -1,0 +1,17 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/tools/:id(jpg|png|webp|compress|resize|crop|rotate|pdf|watermark|base64)",
+      "destination": "/tools/:id/index.html"
+    },
+    {
+      "source": "/:id(about|privacy|terms|contact|sitemap)",
+      "destination": "/:id/index.html"
+    },
+    { "source": "/((?!assets/|tools/|.*\\.).*)", "destination": "/index.html" }
+  ]
+}
